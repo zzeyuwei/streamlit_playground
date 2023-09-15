@@ -8,19 +8,17 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
-import fitz
+from langchain.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
 
 def generate_response(uploaded_file, openai_api_key, query_text):
     # Load document if file is uploaded
     if uploaded_file is not None:
-        doc = fitz.open(stream=uploaded_pdf.read(), filetype="pdf")
-        documents = ""
-        for page in doc:
-            text += page.getText()
-        st.write(documents) 
-        doc.close()
+        loader =  PyPDFLoader(uploaded_file)
+        documents = loader.load()
         # Split documents into chunks
-        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+        text_splitter=RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
         texts = text_splitter.create_documents(documents)
         # Select embeddings
         embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
