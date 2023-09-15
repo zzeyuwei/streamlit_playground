@@ -15,8 +15,14 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 def generate_response(uploaded_file, openai_api_key, query_text):
     # Load document if file is uploaded
     if uploaded_file is not None:
-        loader =  PyPDFLoader(uploaded_file)
-        documents = loader.load()
+        pages = []
+    	pdf = pypdf.PdfReader(file)
+    	for p in range(len(pdf.pages)):
+    		page = pdf.pages[p]
+    		text = page.extract_text()
+    		pages += [text]
+
+        # documents = loader.load()
         # Split documents into chunks
         text_splitter=RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
         texts = text_splitter.create_documents(documents)
