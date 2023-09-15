@@ -17,7 +17,7 @@ def generate_response(uploaded_file, openai_api_key, query_text):
     # Load document if file is uploaded
     if uploaded_file is not None:
         pages = []
-        pdf = pypdf.PdfReader(file)
+        pdf = pypdf.PdfReader(uploaded_file)
         for p in range(len(pdf.pages)):
             page = pdf.pages[p]
             text = page.extract_text()
