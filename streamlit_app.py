@@ -21,7 +21,7 @@ def generate_response(uploaded_file, openai_api_key, query_text):
 
     # documents = loader.load()
     # Split documents into chunks
-    text_splitter=RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
+    text_splitter=CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     texts = text_splitter.create_documents(documents)
     # Select embeddings
     embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
