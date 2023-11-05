@@ -1,7 +1,5 @@
 streamlit
 langchain
 openai
-chromadb
 tiktoken
-pysqlite3-binary
-pypdf
+pysqlite3
